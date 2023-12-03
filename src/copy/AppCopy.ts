@@ -6,12 +6,13 @@ export interface AppCopyInterface {
     maculineChoiceText: string;
     feminineChoiceText: string;
   };
-  loginScreen: {
+  LoginScreen: {
     titleText: string;
     subTitleText: string;
-    coutryCodeText: string;
+    countryCodeText: string;
     phoneNumberPlaceholderText: string;
     continueButtonText: string;
+    invalidPhoneNumberErrorText: string;
   };
   OTPScreen: {
     titleText: string;
@@ -20,6 +21,8 @@ export interface AppCopyInterface {
     resendText: string;
     recendAllowedInText: string;
     continueButtonText: string;
+    notCompleteErrorText: string;
+    invalidErrorText: string;
   };
   HomeScreen: {
     searchPlaceholderText: string;
@@ -68,12 +71,13 @@ export const MainCopy: AppCopyInterface = {
     maculineChoiceText: "Male",
     feminineChoiceText: "Female",
   },
-  loginScreen: {
+  LoginScreen: {
     titleText: "Enter your phone number",
     subTitleText: "We'll send a one-time code to verify your identity.",
-    coutryCodeText: "+251",
+    countryCodeText: "+251",
     phoneNumberPlaceholderText: "Phone number",
     continueButtonText: "Continue",
+    invalidPhoneNumberErrorText: "Invalid phone number",
   },
   OTPScreen: {
     titleText: "You’ve Got SMS",
@@ -82,6 +86,8 @@ export const MainCopy: AppCopyInterface = {
     resendText: "Resend",
     recendAllowedInText: "You can resend code in",
     continueButtonText: "Continue",
+    invalidErrorText: "The OTP you entered is incorrect. Please try again.",
+    notCompleteErrorText: "Please fill in all the OTP fields before verifying.",
   },
   HomeScreen: {
     searchPlaceholderText: "Search",

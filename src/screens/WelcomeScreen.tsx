@@ -27,7 +27,9 @@ function WelcomeScreen({ navigation, route }: LoadedWelcomeScreenParams) {
     tabVisibility: true,
   });
 
-  const handleChoose = () => {};
+  const handleChoose = () => {
+    navigate.LoginScreen();
+  };
 
   const onMasculineChoose = () => {
     handleChoose();
