@@ -3,6 +3,7 @@ import { RouteProp, NavigationProp } from "@react-navigation/native";
 import { LoadedUserData } from "./loadedData";
 import { LoadedAiConversation } from "./aiServices";
 import { IdType } from "./services";
+import { ProductType } from "../types/loadedData";
 
 export interface ScreenParams {
   previousScreen?: ScreenType;
@@ -20,7 +21,9 @@ export interface OTPScreenParams extends ScreenParams {
 
 export interface HomeScreenParams extends ScreenParams {}
 
-export interface ProductScreenParams extends ScreenParams {}
+export interface ProductScreenParams extends ScreenParams {
+  product?: ProductType;
+}
 
 export interface CartScreenParams extends ScreenParams {}
 

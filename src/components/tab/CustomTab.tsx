@@ -10,6 +10,7 @@ import { setTabActive } from "../../reducers/uiReducer";
 import useCustomNavigation from "../../hooks/useCustomNavigation";
 import Color from "../../config/Colors";
 import { tabType } from "../../types/tab";
+import IconFeather from "@expo/vector-icons/Feather";
 
 const CustomTab: React.FC = () => {
   const dispatch = useDispatch();
@@ -73,29 +74,65 @@ const CustomTab: React.FC = () => {
     numbeOfContent: number;
   }[] = [
     {
-      icon: <></>,
-      activeIcon: <></>,
+      icon: <IconFeather color={tabItemColor} name="home" size={tabItemSize} />,
+      activeIcon: (
+        <IconFeather
+          name="home"
+          color={tabItemActiveColor}
+          size={tabItemSize}
+        />
+      ),
       tab: Bottomtabs.Home,
       top: false,
       numbeOfContent: 0,
     },
     {
-      icon: <></>,
-      activeIcon: <></>,
+      icon: (
+        <View style={styles.shoppingCart}>
+          <IconFeather
+            color={tabItemColor}
+            name="shopping-cart"
+            size={tabItemSize}
+          />
+        </View>
+      ),
+      activeIcon: (
+        <View style={styles.shoppingCart}>
+          <IconFeather
+            name="shopping-cart"
+            color={tabItemActiveColor}
+            size={tabItemSize}
+          />
+        </View>
+      ),
       tab: Bottomtabs.Cart,
-      top: false,
+      top: true,
       numbeOfContent: 0,
     },
     {
-      icon: <></>,
-      activeIcon: <></>,
+      icon: <IconFeather color={tabItemColor} name="list" size={tabItemSize} />,
+      activeIcon: (
+        <IconFeather
+          name="list"
+          color={tabItemActiveColor}
+          size={tabItemSize}
+        />
+      ),
       tab: Bottomtabs.Orders,
       top: false,
       numbeOfContent: 0,
     },
     {
-      icon: <></>,
-      activeIcon: <></>,
+      icon: (
+        <IconFeather color={tabItemColor} name="settings" size={tabItemSize} />
+      ),
+      activeIcon: (
+        <IconFeather
+          name="settings"
+          color={tabItemActiveColor}
+          size={tabItemSize}
+        />
+      ),
       tab: Bottomtabs.Setting,
       top: false,
       numbeOfContent: 0,
@@ -143,6 +180,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  shoppingCart: {
+    paddingRight: 5,
   },
 });
 

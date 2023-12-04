@@ -95,9 +95,13 @@ const useCustomNavigation = (): ScreenParamList => {
   );
 
   const ProductScreen = useCallback(
-    ({ previousScreen = defaultPreviousScreen }: ProductScreenParams = {}) => {
+    ({
+      previousScreen = defaultPreviousScreen,
+      product,
+    }: ProductScreenParams = {}) => {
       navigation.navigate(Screens.ProductScreen as string, {
         previousScreen,
+        product,
         // parent: navigation,
       });
     },

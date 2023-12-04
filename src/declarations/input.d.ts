@@ -44,3 +44,17 @@ export interface OTPInputProps extends MarginStyleProps {
   containerStyle?: StyleProp<ViewStyle>;
   setOtp?: (otp: string) => void;
 }
+
+export interface HomeSearchInputProps extends TextInputProps {
+  placeholder?: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
+  marginTop?: number | string;
+  marginBottom?: number | string;
+  marginLeft?: number | string;
+  marginRight?: number | string;
+  containerStyle?: StyleProp<ViewStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+}

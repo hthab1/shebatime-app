@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { CustomTabItemProps } from "../../declarations/tab";
 import CustomText from "../text/CustomText";
 import { ConvertToNumber } from "../../function/text";
@@ -43,7 +43,7 @@ export default function CustomTabItem({
         {active ? tabActiveIcon : tabIcon}
       </View>
       <CustomText
-        color={active ? Color.primaryText : Color.tabInActive}
+        color={active ? Color.tabActive : Color.tabInActive}
         fontSize="xxsmall"
         fontFamily={active ? "Inter700" : "Inter"}
         marginTop={2}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconContainer: {
-    height: 30,
+    height: 25,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     position: "absolute",
     top: -2,
-    left: "45%",
+    left: "50%",
     zIndex: 99,
     borderRadius: 100,
     alignItems: "center",

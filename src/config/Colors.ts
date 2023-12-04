@@ -13,7 +13,7 @@ const Color = {
   inputBackground: "#FAFAFA",
   inputBorder: "#9E9E9E",
   tabInActive: "#9E9E9E",
-  tabActive: "#E73E3E",
+  tabActive: "#BF783C",
   primaryBorder: "#BDC5CD",
   secondaryBackground: "#ECECEC",
   tagPrimary: "#DCDCE2",
