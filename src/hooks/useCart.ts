@@ -30,8 +30,15 @@ export default function () {
     }
     if (selectedItems.includes(index)) {
       selectedItems = selectedItems.filter((item) => item !== index);
-      dispatch(setSelectedCartItems(selectedItems));
     }
+    selectedItems = selectedItems.map((item) => {
+      if (index < item) {
+        return item - 1;
+      } else {
+        return item;
+      }
+    });
+    dispatch(setSelectedCartItems(selectedItems));
     dispatch(setCartItems(items));
   };
 
@@ -58,7 +65,7 @@ export default function () {
     let total = 0;
 
     selectedCartItems.map((item) => {
-      total += cartItems[item].price * cartItems[item].quantity;
+      total += cartItems[item]?.price * cartItems[item]?.quantity;
     });
 
     return total;
