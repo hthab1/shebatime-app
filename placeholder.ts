@@ -1,12 +1,3 @@
-const Product = {
-  name: "Minoxidil 5%",
-  price: "1500",
-  image:
-    "https://res.cloudinary.com/ds8cvugym/image/upload/v1699783454/ul4vy9iti6h6v8fnht9b.png",
-};
-
-export const productsPlaceholderData = Array(10).fill(Product);
-
 export const productPlaceholderData = {
   _id: "6550a3225e447dfb6cdbde34",
   name: "Minoxidil 5%",
@@ -58,3 +49,20 @@ export const productPlaceholderData = {
   updatedAt: "2023-11-14T15:31:42.528Z",
   __v: 0,
 };
+
+const Product = {
+  name: "Minoxidil 5%",
+  price: "1500",
+  image:
+    "https://res.cloudinary.com/ds8cvugym/image/upload/v1699783454/ul4vy9iti6h6v8fnht9b.png",
+};
+const CartItem = {
+  product: productPlaceholderData,
+  productName: "Minoxidil 5%",
+  price: "1500",
+  quantity: 1,
+  selectedSize: "1 bottle",
+};
+
+export const productsPlaceholderData = Array(10).fill(productPlaceholderData);
+export const cartPlaceholderData = Array(10).fill(CartItem);

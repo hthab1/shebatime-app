@@ -38,6 +38,8 @@ export interface AppCopyInterface {
     cartItemsText: string;
     cartItemText: string;
     continueButtonText: string;
+    selectedText: string;
+    noItemsText: string;
   };
   CheckoutScreen: {
     deliveryAddressText: string;
@@ -103,10 +105,13 @@ export const MainCopy: AppCopyInterface = {
     cartItemsText: "Items",
     cartItemText: "Item",
     continueButtonText: "Continue",
+    selectedText: "Selected",
+    noItemsText: "No items in your cart",
   },
   CheckoutScreen: {
     deliveryAddressText: "Delivery Address",
-    deliveryAddressPlaceholderText: "Where do you like to be delivered?",
+    deliveryAddressPlaceholderText:
+      "Where do you like for your items to be delivered?",
     requiredErrorText: "Delivery Address is required",
     orderSummaryText: "Order Summary",
     orderTotalText: "Order Total",

@@ -18,7 +18,7 @@ export default function ErrorText({
       {visible && (
         <CustomText
           fontSize="xsmall"
-          color={Color.primary}
+          color={Color.accent}
           marginTop={marginTop}
           marginBottom={marginBottom}
           marginLeft={marginLeft}

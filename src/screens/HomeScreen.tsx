@@ -12,6 +12,7 @@ import { ContainerWidth } from "../utils/consts";
 import IconFeather from "@expo/vector-icons/Feather";
 import { productsPlaceholderData } from "../../placeholder";
 import ProductCard from "../components/card/ProductCard";
+import { Bottomtabs } from "../config/Tab";
 
 function HomeScreen({ navigation, route }: LoadedHomeScreenParams) {
   const navigate = useCustomNavigation();
@@ -23,8 +24,8 @@ function HomeScreen({ navigation, route }: LoadedHomeScreenParams) {
 
   useOnLoadScreen({
     tabVisibility: true,
+    tabActive: Bottomtabs.Home,
   });
-
   const OnSearchValueChange = (text: string) => {
     setSearchValue(text);
   };

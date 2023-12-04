@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useOnLoadScreen from "../hooks/useOnLoadScreen";
 import { RootState } from "../app/store";
 import CustomText from "../components/text/CustomText";
+import { Bottomtabs } from "../config/Tab";
 
 function OrdersScreen({ navigation, route }: LoadedOrdersScreenParams) {
   const navigate = useCustomNavigation();
@@ -15,6 +16,7 @@ function OrdersScreen({ navigation, route }: LoadedOrdersScreenParams) {
 
   useOnLoadScreen({
     tabVisibility: true,
+    tabActive: Bottomtabs.Orders,
   });
 
   return (

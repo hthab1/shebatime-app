@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useOnLoadScreen from "../hooks/useOnLoadScreen";
 import { RootState } from "../app/store";
 import CustomText from "../components/text/CustomText";
+import { Bottomtabs } from "../config/Tab";
 
 function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
   const navigate = useCustomNavigation();
@@ -15,6 +16,7 @@ function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
 
   useOnLoadScreen({
     tabVisibility: true,
+    tabActive: Bottomtabs.Setting,
   });
 
   return (

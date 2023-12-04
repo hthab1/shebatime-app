@@ -32,3 +32,8 @@ export interface PaddingHorizontalProps {
   paddingLeft?: string | number;
   paddingRight?: string | number;
 }
+
+export interface CheckboxProps extends MarginStyleProps {
+  onPress?: () => void;
+  selected?: boolean;
+}

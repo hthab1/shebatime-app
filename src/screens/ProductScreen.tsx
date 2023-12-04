@@ -22,10 +22,12 @@ import Color from "../config/Colors";
 import { getPrice } from "../function/text";
 import HeaderWithBackOnly from "../components/header/HeaderWithBackOnly";
 import { productPlaceholderData } from "../../placeholder";
-import { ProductSizeType } from "../types/loadedData";
+import { CartItemType, ProductSizeType } from "../types/loadedData";
+import useCart from "../hooks/useCart";
 
 function ProductScreen({ navigation, route }: LoadedProductScreenParams) {
   const navigate = useCustomNavigation();
+  const { addToCart } = useCart();
   const dispatch = useDispatch();
   const { appCopy } = useSelector((state: RootState) => state.ui);
 
@@ -59,11 +61,19 @@ function ProductScreen({ navigation, route }: LoadedProductScreenParams) {
     }
   ).current;
 
-  const onFavorite = () => {
-    setSetAddedToFavourite(!addedToFavourite);
+  const handleAdd = () => {
+    let cartItem: CartItemType = {
+      product: product,
+      price: product.price,
+      productName: product.name,
+      quantity: 1,
+    };
+    if (product.sizes) {
+      cartItem.selectedSize = selectedSize?.sizeName;
+      cartItem.price = selectedSize?.price;
+    }
+    addToCart(cartItem);
   };
-
-  const handleAdd = () => {};
 
   const onSizeSelect = (size: ProductSizeType) => {
     setSelectedSize(size);

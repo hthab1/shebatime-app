@@ -17,6 +17,7 @@ const CustomTab: React.FC = () => {
   const { tabActive, tabVisible } = useSelector((state: RootState) => state.ui);
   const navigate = useCustomNavigation();
   const { user } = useSelector((state: RootState) => state.user);
+  const { cartItems } = useSelector((state: RootState) => state.cart);
 
   let tabItemColor = Color.tabInActive;
   let tabItemActiveColor = Color.tabActive;
@@ -107,7 +108,7 @@ const CustomTab: React.FC = () => {
       ),
       tab: Bottomtabs.Cart,
       top: true,
-      numbeOfContent: 0,
+      numbeOfContent: cartItems.length,
     },
     {
       icon: <IconFeather color={tabItemColor} name="list" size={tabItemSize} />,

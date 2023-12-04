@@ -7,6 +7,8 @@ import IconFeather from "@expo/vector-icons/Feather";
 import CustomText from "../text/CustomText";
 import { getPrice } from "../../function/text";
 import useCustomNavigation from "../../hooks/useCustomNavigation";
+import { CartItemType } from "../../types/loadedData";
+import useCart from "../../hooks/useCart";
 
 export default function ProductCard({
   product,
@@ -15,11 +17,13 @@ export default function ProductCard({
   style,
 }: ProductCardProps) {
   const navigate = useCustomNavigation();
+  const { addToCart } = useCart();
   const styles = createStyles({ marginBottom, marginTop });
 
-  const productImage = product.image;
+  const productImage = product.images[0];
   const productName = product.name;
   const productPrice = product.price;
+  const productType = product.type;
 
   const onImagePress = () => {
     OpenProduct();
@@ -29,7 +33,18 @@ export default function ProductCard({
     OpenProduct();
   };
 
-  const onAdd = () => {};
+  const onAdd = () => {
+    let cartItem: CartItemType = {
+      product: product,
+      price: product.price,
+      productName: product.name,
+      quantity: 1,
+    };
+    if (product.sizes) {
+      cartItem.selectedSize = product.sizes[0]?.sizeName;
+    }
+    addToCart(cartItem);
+  };
 
   const OpenProduct = () => {
     navigate.ProductScreen({ product });
@@ -37,7 +52,13 @@ export default function ProductCard({
 
   return (
     <View style={[styles.container, style]}>
-      <TouchableOpacity onPress={onImagePress} style={[styles.imageContainer]}>
+      <TouchableOpacity
+        onPress={onImagePress}
+        style={[
+          styles.imageContainer,
+          productType === "masculine" && styles.imageContainerMasculine,
+        ]}
+      >
         <Image source={{ uri: productImage }} style={styles.image} />
       </TouchableOpacity>
       <View style={styles.content}>

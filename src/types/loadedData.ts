@@ -5,3 +5,11 @@ export type ProductSizeType = {
   sizeName: string;
   price: number;
 };
+
+export type CartItemType = {
+  product: ProductType;
+  productName: string;
+  quantity: number;
+  price: number;
+  selectedSize?: string;
+};
