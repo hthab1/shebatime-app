@@ -66,3 +66,41 @@ const CartItem = {
 
 export const productsPlaceholderData = Array(10).fill(productPlaceholderData);
 export const cartPlaceholderData = Array(10).fill(CartItem);
+
+export const orderPlaceholderData = {
+  _id: "656f3766bf022002b0effeec",
+  products: [
+    {
+      product: "6550a3225e447dfb6cdbde34",
+      productName: "Minoxidil 5%",
+      quantity: 2,
+      price: 1400,
+      selectedSize: "1 bottle",
+      _id: "656f3766bf022002b0effeed",
+    },
+    {
+      product: "6550c6e58772d93a11fc9715",
+      productName: "Neo hair lotion",
+      quantity: 1,
+      price: 3000,
+      selectedSize: "",
+      _id: "656f3766bf022002b0effeee",
+    },
+    {
+      product: "6550dbf58772d93a11fc9772",
+      productName: "Dr. Rashel vitamin C 5 piece set",
+      quantity: 1,
+      price: 2900,
+      selectedSize: "",
+      _id: "656f3766bf022002b0effeef",
+    },
+  ],
+  phoneNumber: "0932421241",
+  status: "ordered",
+  deliveryAddress: "addis ababa",
+  createdAt: "2023-12-05T14:44:54.339Z",
+  updatedAt: "2023-12-05T14:44:54.339Z",
+  __v: 0,
+};
+
+export const ordersPlaceholderData = Array(10).fill(orderPlaceholderData);

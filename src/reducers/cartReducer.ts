@@ -1,8 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { tabType } from "../types/tab";
-import { ScreenType } from "../declarations/screen";
-import { Screens } from "../config/Screens";
-import { AppCopyInterface, MainCopy } from "../copy/AppCopy";
 import { CartItemType } from "../types/loadedData";
 
 interface CartState {

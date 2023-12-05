@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../reducers/userReducer";
-import { setAppCopy } from "../reducers/uiReducer";
-import { MainCopy } from "../copy/AppCopy";
+import { setUser, setUserGender, setUserPhone } from "../reducers/userReducer";
 import { loadCachedItem } from "../utils/storage";
 import { setCartItems } from "../reducers/cartReducer";
+import { UserGenderType } from "../types/loadedData";
 
 export const useLoadDataOnStart = () => {
   const dispatch = useDispatch();
@@ -17,6 +16,20 @@ export const useLoadDataOnStart = () => {
     }
   };
 
+  const loadUserPhone = async () => {
+    const phone = await loadCachedItem("phone");
+    if (phone) {
+      dispatch(setUserPhone(phone));
+    }
+  };
+
+  const loadUserGender = async () => {
+    const gender = await loadCachedItem("gender");
+    if (gender) {
+      dispatch(setUserGender(gender as UserGenderType));
+    }
+  };
+
   const loadCart = async () => {
     const cart = await loadCachedItem("cart");
     if (cart) {
@@ -26,7 +39,12 @@ export const useLoadDataOnStart = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      await Promise.all([loadUser(), loadCart()]);
+      await Promise.all([
+        loadUser(),
+        loadCart(),
+        loadUserPhone(),
+        loadUserGender(),
+      ]);
       setIsLoading(false);
     };
 

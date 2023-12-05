@@ -16,7 +16,7 @@ import OTPInput from "../components/input/OTPInput";
 import ErrorText from "../components/text/ErrorText";
 import { ScreenHeight } from "../utils/consts";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../reducers/userReducer";
+import { setUser, setUserPhone } from "../reducers/userReducer";
 import { cacheItem } from "../utils/storage";
 import { RootState } from "../app/store";
 import Color from "../config/Colors";
@@ -75,8 +75,10 @@ function OTPScreen({ route }: LoadedOTPScreenParams) {
     if (otp.length < numberOfOTPCharacters) {
       setError(notCompleteErrorText);
     }
-    dispatch(setUser("user"));
-    await cacheItem("user", "user");
+    dispatch(setUser(phone));
+    dispatch(setUserPhone(phone));
+    await cacheItem("user", phone || "");
+    await cacheItem("phone", phone || "");
   };
 
   const handleDone = async () => {};

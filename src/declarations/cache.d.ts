@@ -1,1 +1,1 @@
-export type cacheItems = "user" | "phone" | "cart";
+export type cacheItems = "user" | "phone" | "cart" | "gender";

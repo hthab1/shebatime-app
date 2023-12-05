@@ -9,10 +9,12 @@ import { RootState } from "../app/store";
 import CustomText from "../components/text/CustomText";
 import Color from "../config/Colors";
 import { ScreenHeight } from "../utils/consts";
+import useUser from "../hooks/useUser";
 
 function WelcomeScreen({ navigation, route }: LoadedWelcomeScreenParams) {
   const navigate = useCustomNavigation();
   const dispatch = useDispatch();
+  const { selectGender } = useUser();
   const { appCopy } = useSelector((state: RootState) => state.ui);
 
   const {
@@ -32,10 +34,12 @@ function WelcomeScreen({ navigation, route }: LoadedWelcomeScreenParams) {
   };
 
   const onMasculineChoose = () => {
+    selectGender("masculine");
     handleChoose();
   };
 
   const onFeminineChoose = () => {
+    selectGender("feminine");
     handleChoose();
   };
 

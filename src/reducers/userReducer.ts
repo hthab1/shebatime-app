@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserGenderType } from "../types/loadedData";
 
 interface userState {
   user: any;
   userPhone: string | null;
+  userGender: UserGenderType | null;
 }
 
 const initialState: userState = {
   user: null,
   userPhone: null,
+  userGender: null,
 };
 
 export const user = createSlice({
@@ -20,9 +23,12 @@ export const user = createSlice({
     setUserPhone: (state, action: PayloadAction<any>) => {
       state.userPhone = action.payload;
     },
+    setUserGender: (state, action: PayloadAction<UserGenderType | null>) => {
+      state.userGender = action.payload;
+    },
   },
 });
 
-export const { setUser, setUserPhone } = user.actions;
+export const { setUser, setUserPhone, setUserGender } = user.actions;
 
 export default user.reducer;

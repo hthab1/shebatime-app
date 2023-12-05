@@ -14,6 +14,8 @@ import Color from "../config/Colors";
 import { getPrice } from "../function/text";
 import useCart from "../hooks/useCart";
 import ErrorText from "../components/text/ErrorText";
+import { setThankYouModal } from "../reducers/modalReducer";
+import ThankYouModal from "../components/modal/ThankYouModal";
 
 function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
   const navigate = useCustomNavigation();
@@ -53,6 +55,7 @@ function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
 
   const OnCheckout = () => {
     if (!address) return setError(requiredErrorText);
+    dispatch(setThankYouModal(true));
   };
 
   return (
@@ -69,6 +72,7 @@ function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
         />
       }
     >
+      <ThankYouModal />
       <CustomText marginTop={20}>{deliveryAddressText}</CustomText>
       <PrimaryInput
         value={address}

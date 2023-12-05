@@ -17,6 +17,10 @@ const Color = {
   primaryBorder: "#BDC5CD",
   secondaryBackground: "#ECECEC",
   tagPrimary: "#DCDCE2",
+  statusOrdered: "#3CBE1C",
+  statusCancelled: "#C81B1B",
+  statusAssigned: "#1C3FBE",
+  statusDelivered: "#616161",
 };
 
 export default Color;

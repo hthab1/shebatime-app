@@ -5,7 +5,7 @@ import { cacheItem } from "../utils/storage";
 import { CartItemType } from "../types/loadedData";
 import { useEffect } from "react";
 
-export default function () {
+export default function useCart() {
   const dispatch = useDispatch();
   const { cartItems, selectedCartItems } = useSelector(
     (state: RootState) => state.cart
@@ -92,6 +92,14 @@ export default function () {
     dispatch(setCartItems(updatedCart));
   };
 
+  const clearSelectedFromCart = () => {
+    const updatedCart = cartItems.filter(
+      (item, index) => !selectedCartItems.includes(index)
+    );
+    dispatch(setCartItems(updatedCart));
+    dispatch(setSelectedCartItems([]));
+  };
+
   return {
     addToCart,
     removeFromCart,
@@ -101,5 +109,6 @@ export default function () {
     calculateTotalSelectedPrice,
     increaseQuantity,
     decreaseQuantity,
+    clearSelectedFromCart,
   };
 }

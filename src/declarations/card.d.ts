@@ -1,6 +1,6 @@
 import { ViewStyle } from "react-native";
 import { MarginVerticalProps } from "./common";
-import { CartItemType, ProductType } from "../types/loadedData";
+import { CartItemType, OrderType, ProductType } from "../types/loadedData";
 
 export interface ProductCardProps extends MarginVerticalProps {
   product: ProductType;
@@ -13,6 +13,11 @@ export interface CartCardProps extends MarginVerticalProps {
   selected?: boolean;
   onSelect?: (cart: CartItemType) => void;
   index: number;
+}
+
+export interface OrderCardProps extends MarginVerticalProps {
+  order: OrderType;
+  style?: ViewStyle;
 }
 
 export interface CartSelectedCalculationCardProps extends MarginVerticalProps {

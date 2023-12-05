@@ -56,12 +56,21 @@ export interface AppCopyInterface {
     titleText: string;
     orderDateText: string;
     orderTotalPriceText: string;
+    noOrdersText: string;
+    orderStatusText: string;
+    deliveryAddressText: string;
   };
   SettingScreen: {
     titleText: string;
     subTitleText: string;
     maculineChoiceText: string;
     feminineChoiceText: string;
+    logoutText: string;
+    deleteAccountTitle: string;
+    deleteAccountButtonText: string;
+    deleteAccountSubTitleText: string;
+    countryCodeText: string;
+    phoneNumberText: string;
   };
 }
 
@@ -124,11 +133,21 @@ export const MainCopy: AppCopyInterface = {
     titleText: "Orders",
     orderDateText: "Order Date",
     orderTotalPriceText: "Total Price",
+    noOrdersText: "You have no orders yet",
+    deliveryAddressText: "Delivery Address",
+    orderStatusText: "Status",
   },
   SettingScreen: {
     titleText: "Setting",
     subTitleText: "Select what kind of products you are interested in",
     maculineChoiceText: "For Men",
     feminineChoiceText: "For Women",
+    deleteAccountButtonText: "Delete Account",
+    deleteAccountSubTitleText:
+      "If you delete your account there is no going back",
+    logoutText: "Logout",
+    deleteAccountTitle: "Dangerous area",
+    countryCodeText: "+251",
+    phoneNumberText: "Phone number",
   },
 };

@@ -4,11 +4,13 @@ import { combineReducers } from "redux";
 import uiReducer from "../reducers/uiReducer";
 import userReducer from "../reducers/userReducer";
 import cartReducer from "../reducers/cartReducer";
+import modalReducer from "../reducers/modalReducer";
 
 const rootReducer = combineReducers({
   ui: uiReducer,
   user: userReducer,
   cart: cartReducer,
+  modal: modalReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

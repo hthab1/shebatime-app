@@ -6,11 +6,11 @@ export const ScreenHeight = Dimensions.get("screen").height;
 export const WidthWidth = Dimensions.get("window").width;
 export const WidthHeight = Dimensions.get("window").height;
 
-export const ContainerWidth = Dimensions.get("screen").width * 0.9;
-export const ContainerPercentWidth = "90%";
+export const ContainerWidth = Dimensions.get("screen").width * 0.95;
+export const ContainerPercentWidth = "95%";
 
-export const ContainerPadding = Dimensions.get("screen").width * 0.05;
-export const ContainerPercentPadding = "5%";
+export const ContainerPadding = Dimensions.get("screen").width * 0.025;
+export const ContainerPercentPadding = "2.5%";
 
 export const SecondaryContainerWidth = Dimensions.get("screen").width * 0.8;
 export const SecondaryContainerPercentWidth = "80%";

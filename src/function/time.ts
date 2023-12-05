@@ -71,3 +71,12 @@ export function getHourMinuteMeridian(isoFormat?: string): string {
 
   return `${formattedHour}:${formattedMinute} ${meridian}`;
 }
+
+export function getMonthDateYear(date?: string): string {
+  if (!date) return "";
+  const inputDate = new Date(date);
+  const month = inputDate.toLocaleString("default", { month: "short" });
+  const day = inputDate.getDate();
+  const year = inputDate.getFullYear();
+  return `${month} ${day}, ${year}`;
+}
