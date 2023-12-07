@@ -71,6 +71,10 @@ export interface AppCopyInterface {
     deleteAccountSubTitleText: string;
     countryCodeText: string;
     phoneNumberText: string;
+    deleteAlertTitle: string;
+    deleteAlertSubTitle: string;
+    alertYes: string;
+    alertNo: string;
   };
 }
 
@@ -149,5 +153,9 @@ export const MainCopy: AppCopyInterface = {
     deleteAccountTitle: "Dangerous area",
     countryCodeText: "+251",
     phoneNumberText: "Phone number",
+    deleteAlertTitle: "Delete Account",
+    deleteAlertSubTitle: "Are you sure you want to delete your account?",
+    alertYes: "Yes",
+    alertNo: "No",
   },
 };

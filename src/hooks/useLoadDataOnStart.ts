@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser, setUserGender, setUserPhone } from "../reducers/userReducer";
+import {
+  setToken,
+  setUser,
+  setUserGender,
+  setUserPhone,
+} from "../reducers/userReducer";
 import { loadCachedItem } from "../utils/storage";
 import { setCartItems } from "../reducers/cartReducer";
 import { UserGenderType } from "../types/loadedData";
@@ -12,7 +17,14 @@ export const useLoadDataOnStart = () => {
   const loadUser = async () => {
     const user = await loadCachedItem("user");
     if (user) {
-      dispatch(setUser(user));
+      dispatch(setUser(JSON.parse(user)));
+    }
+  };
+
+  const loadToken = async () => {
+    const token = await loadCachedItem("token");
+    if (token) {
+      dispatch(setToken(token));
     }
   };
 
@@ -41,6 +53,7 @@ export const useLoadDataOnStart = () => {
     const loadData = async () => {
       await Promise.all([
         loadUser(),
+        loadToken(),
         loadCart(),
         loadUserPhone(),
         loadUserGender(),

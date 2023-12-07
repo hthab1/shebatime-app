@@ -86,3 +86,18 @@ export const getViews = (views?: any): string => {
     }
   }
 };
+
+export const formatPhoneNumber = (
+  phoneNumber: string,
+  countryCode?: boolean
+): string => {
+  if (phoneNumber.length === 9) {
+    if (countryCode) {
+      return `+251${phoneNumber}`;
+    } else {
+      return `0${phoneNumber}`;
+    }
+  } else {
+    return phoneNumber;
+  }
+};

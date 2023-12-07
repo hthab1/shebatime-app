@@ -20,10 +20,12 @@ import { setUser, setUserPhone } from "../reducers/userReducer";
 import { cacheItem } from "../utils/storage";
 import { RootState } from "../app/store";
 import Color from "../config/Colors";
+import useUser from "../hooks/useUser";
 
 function OTPScreen({ route }: LoadedOTPScreenParams) {
   const navigate = useCustomNavigation();
   const dispatch = useDispatch();
+  const { verifyOTP, sendOTP } = useUser();
   const { appCopy } = useSelector((state: RootState) => state.ui);
 
   const {
@@ -63,22 +65,35 @@ function OTPScreen({ route }: LoadedOTPScreenParams) {
     }, 1000);
     return () => clearInterval(timer);
   }, [numberOfSeconds]);
-
+  3;
   const handleSetOpt = (otp: string) => {
     setOtpValue(otp);
     setError("");
+    if (otp.length === 4) {
+      handleVerify(otp);
+    }
   };
 
-  const handleResend = async (): Promise<void> => {};
+  const handleResend = async (): Promise<void> => {
+    const response = await sendOTP({
+      phone: phone as string,
+      setLoading: setResending,
+    });
+    if (response) {
+      setNumberOfSeconds(60);
+      setTimerActive(true);
+    }
+  };
 
   const handleVerify = async (otp: string): Promise<void> => {
     if (otp.length < numberOfOTPCharacters) {
       setError(notCompleteErrorText);
     }
-    dispatch(setUser(phone));
-    dispatch(setUserPhone(phone));
-    await cacheItem("user", phone || "");
-    await cacheItem("phone", phone || "");
+    await verifyOTP({
+      code: otp,
+      phone: phone as string,
+      setLoading: setVerifying,
+    });
   };
 
   const handleDone = async () => {};
@@ -114,8 +129,7 @@ function OTPScreen({ route }: LoadedOTPScreenParams) {
         {timerActive ? (
           <View style={styles.secondContainer}>
             <CustomText color={Color.secondaryText} marginTop={10}>
-              {recendAllowedInText}
-              {numberOfSeconds}
+              {recendAllowedInText} {numberOfSeconds}
               {secondText}
             </CustomText>
           </View>

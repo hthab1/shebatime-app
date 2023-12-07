@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import Screen, { statusBarHeight } from "../components/container/Screen";
 import useCustomNavigation from "../hooks/useCustomNavigation";
 import { LoadedSettingScreenParams } from "../declarations/loadedScreenParams";
@@ -13,14 +13,16 @@ import { Bottomtabs } from "../config/Tab";
 import { useLogout } from "../hooks/useLogout";
 import useUser from "../hooks/useUser";
 import IconFeather from "@expo/vector-icons/Feather";
+import GlobalLoadingModal from "../components/modal/GlobalLoadingModal";
 
 function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
   const navigate = useCustomNavigation();
   const dispatch = useDispatch();
   const logout = useLogout();
+  const { deleteUser, updateUser } = useUser();
   const { selectGender } = useUser();
   const { appCopy } = useSelector((state: RootState) => state.ui);
-  const { userGender, userPhone } = useSelector(
+  const { userGender, userPhone, user } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -40,21 +42,38 @@ function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
     titleText,
     countryCodeText,
     phoneNumberText,
+    deleteAlertSubTitle,
+    deleteAlertTitle,
+    alertNo,
+    alertYes,
   } = appCopy.SettingScreen;
 
-  const onMasculineChoose = () => {
+  const onMasculineChoose = async () => {
     selectGender("masculine");
+    await updateUser({ gender: "male" });
   };
 
-  const onFeminineChoose = () => {
+  const onFeminineChoose = async () => {
     selectGender("feminine");
+    await updateUser({ gender: "female" });
   };
 
   const handleLogout = () => {
     logout();
   };
 
-  const handleDeleteAccount = () => {};
+  const handleDeleteAccount = () => {
+    Alert.alert(deleteAlertTitle, deleteAlertSubTitle, [
+      {
+        text: alertNo,
+        style: "cancel",
+      },
+      {
+        text: alertYes,
+        onPress: () => deleteUser({}),
+      },
+    ]);
+  };
 
   return (
     <Screen
@@ -70,6 +89,7 @@ function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
         </View>
       }
     >
+      <GlobalLoadingModal />
       <View style={styles.content}>
         <CustomText marginTop={30}>{phoneNumberText}</CustomText>
         <View style={[styles.button, styles.phone]}>

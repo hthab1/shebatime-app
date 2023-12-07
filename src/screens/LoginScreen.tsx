@@ -13,10 +13,12 @@ import { LoadedLoginScreenParams } from "../declarations/loadedScreenParams";
 import { RootState } from "../app/store";
 import EthiopianFlagIcon from "../components/icon/EthiopianFlagIcon";
 import Color from "../config/Colors";
+import useUser from "../hooks/useUser";
 
 function LoginScreen({ route }: LoadedLoginScreenParams) {
   const navigate = useCustomNavigation();
   const dispatch = useDispatch();
+  const { sendOTP } = useUser();
   const { appCopy } = useSelector((state: RootState) => state.ui);
 
   //states
@@ -38,6 +40,8 @@ function LoginScreen({ route }: LoadedLoginScreenParams) {
       setPhoneError(invalidPhoneNumberErrorText);
       return;
     }
+    const response = await sendOTP({ phone, setLoading: setLoggingIn });
+    if (!response) return;
     navigate.OTPScreen({
       phone: phone,
     });
@@ -66,6 +70,7 @@ function LoginScreen({ route }: LoadedLoginScreenParams) {
           primary
           marginBottom={30}
           onPress={handleLogin}
+          loading={loggingIn}
         />
       }
     >
