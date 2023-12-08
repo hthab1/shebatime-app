@@ -16,7 +16,6 @@ import Color from "../config/Colors";
 import PrimaryInput from "../components/input/PrimaryInput";
 import { ContainerWidth, ScreenWidth } from "../utils/consts";
 import IconFeather from "@expo/vector-icons/Feather";
-// import { productsPlaceholderData } from "../../placeholder";
 import ProductCard from "../components/card/ProductCard";
 import { Bottomtabs } from "../config/Tab";
 import { ProductType } from "../types/loadedData";

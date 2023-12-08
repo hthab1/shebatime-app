@@ -12,6 +12,7 @@ import { Checkout, GetOrders } from "../api/services/order";
 import { Sort } from "../config/api";
 import { order, setOrders } from "../reducers/orderReducer";
 import { formatPhoneNumber } from "../function/text";
+import { setOrdersReload } from "../reducers/reloadReducer";
 
 export default function useOrder() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function useOrder() {
   );
   const { userPhone } = useSelector((state: RootState) => state.user);
   const { orders } = useSelector((state: RootState) => state.order);
+  const { ordersReload } = useSelector((state: RootState) => state.reload);
 
   useEffect(() => {
     cacheItem("cart", JSON.stringify(cartItems));
@@ -67,7 +69,15 @@ export default function useOrder() {
       reload,
     }: { reload?: boolean; more?: boolean; local?: boolean }
   ) => {
-    if (orders && orders.length > 0 && !reload && !more && !local) return;
+    if (
+      orders &&
+      orders.length > 0 &&
+      !reload &&
+      !more &&
+      !local &&
+      !ordersReload
+    )
+      return;
     const response = await GetOrders({
       sort: Sort.descendingCreatedAtOrder,
       limit,
@@ -82,6 +92,9 @@ export default function useOrder() {
         totalOrders = [...orders, ...loadedOrders];
       }
       if (local) return totalOrders;
+      if (ordersReload) {
+        dispatch(setOrdersReload(false));
+      }
       totalOrders && dispatch(setOrders(totalOrders));
     }
   };
@@ -109,7 +122,10 @@ export default function useOrder() {
       deliveryAddress,
     });
     const { status, data, message } = response;
-    if (status === 200 || 201) return true;
+    if (status === 200 || 201) {
+      dispatch(setOrdersReload(true));
+      return true;
+    }
     return false;
   };
 
