@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 import Screen, { statusBarHeight } from "../components/container/Screen";
 import useCustomNavigation from "../hooks/useCustomNavigation";
 import { LoadedOrdersScreenParams } from "../declarations/loadedScreenParams";
@@ -13,16 +13,36 @@ import { Bottomtabs } from "../config/Tab";
 import IconMaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { ordersPlaceholderData } from "../../placeholder";
 import OrderCard from "../components/card/OrderCard";
+import useOrder from "../hooks/useOrders";
+import { OrderType } from "../types/loadedData";
+import OrderCardShimmer from "../components/shimmer/OrderCardShimmer";
 
 function OrdersScreen({ navigation, route }: LoadedOrdersScreenParams) {
   const navigate = useCustomNavigation();
   const dispatch = useDispatch();
+  const { getOrders } = useOrder();
   const { appCopy } = useSelector((state: RootState) => state.ui);
+  const { orders } = useSelector((state: RootState) => state.order);
+
+  //states
+  const [loading, setLoading] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
+  const [loadedOrders, setLoadedOrders] = useState<OrderType[]>(orders);
+
+  useEffect(() => {
+    setLoadedOrders(orders);
+  }, [orders]);
 
   useOnLoadScreen({
     tabVisibility: true,
     tabActive: Bottomtabs.Orders,
+    onFocus: async () => await getOrders({ setLoading: setLoading }, {}),
   });
+
+  const handleRefresh = async () => {
+    await getOrders({ setLoading: setRefreshing }, { reload: true });
+  };
 
   const { titleText, noOrdersText } = appCopy.OrdersScreen;
 
@@ -40,25 +60,43 @@ function OrdersScreen({ navigation, route }: LoadedOrdersScreenParams) {
       }
     >
       <View style={styles.content}>
-        {ordersPlaceholderData.length > 0 ? (
+        {loading ? (
           <FlatList
-            data={ordersPlaceholderData}
+            data={Array(6).fill("")}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flatlist}
             keyExtractor={(item, index) => `${index}`}
-            renderItem={({ item }) => <OrderCard order={item} />}
+            renderItem={({ item }) => <OrderCardShimmer />}
           />
         ) : (
-          <View style={styles.noItems}>
-            <IconMaterialCommunityIcons
-              name="clipboard-list-outline"
-              size={ScreenWidth * 0.4}
-              color={Color.black50}
-            />
-            <CustomText marginBottom={ScreenHeight * 0.1}>
-              {noOrdersText}
-            </CustomText>
-          </View>
+          <>
+            {loadedOrders.length > 0 ? (
+              <FlatList
+                data={loadedOrders}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                  />
+                }
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.flatlist}
+                keyExtractor={(item, index) => `${index}`}
+                renderItem={({ item }) => <OrderCard order={item} />}
+              />
+            ) : (
+              <View style={styles.noItems}>
+                <IconMaterialCommunityIcons
+                  name="clipboard-list-outline"
+                  size={ScreenWidth * 0.4}
+                  color={Color.black50}
+                />
+                <CustomText marginBottom={ScreenHeight * 0.1}>
+                  {noOrdersText}
+                </CustomText>
+              </View>
+            )}
+          </>
         )}
       </View>
     </Screen>

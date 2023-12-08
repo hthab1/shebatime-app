@@ -10,6 +10,7 @@ import CustomText from "../components/text/CustomText";
 import Color from "../config/Colors";
 import { ScreenHeight } from "../utils/consts";
 import useUser from "../hooks/useUser";
+import Images from "../config/Images";
 
 function WelcomeScreen({ navigation, route }: LoadedWelcomeScreenParams) {
   const navigate = useCustomNavigation();
@@ -59,10 +60,7 @@ function WelcomeScreen({ navigation, route }: LoadedWelcomeScreenParams) {
       <CustomText small>{taglineText}</CustomText>
       <View style={styles.choice}>
         <TouchableOpacity onPress={onFeminineChoose} style={styles.card}>
-          <Image
-            source={require("../../assets/Femalechoose.png")}
-            style={styles.image}
-          />
+          <Image source={Images.chooseFemaleImage} style={styles.image} />
           <CustomText medium>{feminineChoiceText}</CustomText>
         </TouchableOpacity>
 
@@ -70,10 +68,7 @@ function WelcomeScreen({ navigation, route }: LoadedWelcomeScreenParams) {
           onPress={onMasculineChoose}
           style={[styles.card, styles.cardMale]}
         >
-          <Image
-            source={require("../../assets/Malechoose.png")}
-            style={styles.image}
-          />
+          <Image source={Images.chooseMaleImage} style={styles.image} />
           <CustomText medium>{maculineChoiceText}</CustomText>
         </TouchableOpacity>
       </View>

@@ -1,13 +1,5 @@
+import { UserType } from "../types/loadedData";
 import { GetReturnType, LoadingProps } from "./commonServices";
-
-export type UserType = {
-  _id: string;
-  phone: string;
-  otp?: string;
-  gender: string;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export interface SendOTPProps {
   phone: string;

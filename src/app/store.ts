@@ -5,12 +5,18 @@ import uiReducer from "../reducers/uiReducer";
 import userReducer from "../reducers/userReducer";
 import cartReducer from "../reducers/cartReducer";
 import modalReducer from "../reducers/modalReducer";
+import productReducer from "../reducers/productReducer";
+import orderReducer from "../reducers/orderReducer";
+import reloadReducer from "../reducers/reloadReducer";
 
 const rootReducer = combineReducers({
   ui: uiReducer,
   user: userReducer,
   cart: cartReducer,
   modal: modalReducer,
+  product: productReducer,
+  order: orderReducer,
+  reload: reloadReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

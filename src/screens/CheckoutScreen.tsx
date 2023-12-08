@@ -16,10 +16,12 @@ import useCart from "../hooks/useCart";
 import ErrorText from "../components/text/ErrorText";
 import { setThankYouModal } from "../reducers/modalReducer";
 import ThankYouModal from "../components/modal/ThankYouModal";
+import useOrder from "../hooks/useOrders";
 
 function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
   const navigate = useCustomNavigation();
-  const { calculateTotalSelectedPrice } = useCart();
+  const { calculateTotalSelectedPrice, clearSelectedFromCart } = useCart();
+  const { checkout } = useOrder();
   const dispatch = useDispatch();
   const { appCopy } = useSelector((state: RootState) => state.ui);
   const { selectedCartItems, cartItems } = useSelector(
@@ -27,6 +29,7 @@ function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
   );
 
   //states
+  const [checkingOut, setCheckingOut] = useState<boolean>(false);
   const [address, setAddress] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -53,8 +56,14 @@ function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
     requiredErrorText,
   } = appCopy.CheckoutScreen;
 
-  const OnCheckout = () => {
+  const OnCheckout = async () => {
     if (!address) return setError(requiredErrorText);
+    const success = await checkout({
+      deliveryAddress: address,
+      setLoading: setCheckingOut,
+    });
+    if (!success) return;
+    clearSelectedFromCart();
     dispatch(setThankYouModal(true));
   };
 
@@ -69,6 +78,7 @@ function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
           label={continueButtonText}
           primary
           onPress={OnCheckout}
+          loading={checkingOut}
         />
       }
     >
@@ -88,10 +98,10 @@ function CheckoutScreen({ navigation, route }: LoadedCheckoutScreenParams) {
       {selectedCartItems.map((item, index) => (
         <View style={styles.row} key={index}>
           <CustomText>
-            x{cartItems[item].quantity} {cartItems[item].productName}
+            x{cartItems[item]?.quantity} {cartItems[item]?.productName}
           </CustomText>
           <CustomText>
-            {getPrice(cartItems[item].price * cartItems[item].quantity)}
+            {getPrice(cartItems[item]?.price * cartItems[item]?.quantity)}
           </CustomText>
         </View>
       ))}

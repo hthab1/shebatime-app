@@ -17,7 +17,6 @@ import {
   DeleteUserProps,
   SendOTPProps,
   UpdateUserProps,
-  UserType,
   VerifyOTPProps,
 } from "../declarations/userServices";
 import { RootState } from "../app/store";
@@ -25,6 +24,7 @@ import { formatPhoneNumber } from "../function/text";
 import { useLogout } from "./useLogout";
 import { useEffect } from "react";
 import { setGlobalLoading } from "../reducers/modalReducer";
+import { setProductsReload } from "../reducers/reloadReducer";
 
 export default function useUser() {
   const dispatch = useDispatch();
@@ -82,13 +82,18 @@ export default function useUser() {
     gender,
     setLoading,
   }: UpdateUserProps): Promise<boolean> => {
+    const productTypeUpdate = userGender === "masculine" ? "male" : "female";
+    if (productTypeUpdate === gender) return false;
+    dispatch(setGlobalLoading(true));
     const response = await UpdateUser({
       setLoading,
-      gender: gender as string,
+      gender: gender,
     });
     const { message, status, user } = response;
 
+    dispatch(setGlobalLoading(false));
     if (status === (200 || 201) && user) {
+      dispatch(setProductsReload(true));
       dispatch(setUser(user));
       cacheItem("user", JSON.stringify(user));
       return true;

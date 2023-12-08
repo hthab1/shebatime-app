@@ -22,7 +22,11 @@ import Color from "../config/Colors";
 import { getPrice } from "../function/text";
 import HeaderWithBackOnly from "../components/header/HeaderWithBackOnly";
 import { productPlaceholderData } from "../../placeholder";
-import { CartItemType, ProductSizeType } from "../types/loadedData";
+import {
+  CartItemType,
+  ProductSizeType,
+  ProductType,
+} from "../types/loadedData";
 import useCart from "../hooks/useCart";
 
 function ProductScreen({ navigation, route }: LoadedProductScreenParams) {
@@ -30,17 +34,28 @@ function ProductScreen({ navigation, route }: LoadedProductScreenParams) {
   const { addToCart } = useCart();
   const dispatch = useDispatch();
   const { appCopy } = useSelector((state: RootState) => state.ui);
+  const { product: loadedProduct } = useSelector(
+    (state: RootState) => state.product
+  );
 
   //states
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [addedToFavourite, setSetAddedToFavourite] = useState<boolean>(false);
-  const [product, setProduct] = useState<any>(route?.params.product);
-  const [selectedSize, setSelectedSize] = useState<ProductSizeType>(
+  const [product, setProduct] = useState<ProductType>(
+    loadedProduct as ProductType
+  );
+  const [selectedSize, setSelectedSize] = useState<ProductSizeType | null>(
     product?.sizes ? product.sizes[0] : null
   );
 
   useEffect(() => {
-    setProduct(productPlaceholderData);
+    if (loadedProduct) {
+      setProduct(loadedProduct);
+    } else {
+      if (route?.params.product) {
+        setProduct(route?.params.product);
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -68,9 +83,9 @@ function ProductScreen({ navigation, route }: LoadedProductScreenParams) {
       productName: product.name,
       quantity: 1,
     };
-    if (product.sizes) {
+    if (product.availableSizes) {
       cartItem.selectedSize = selectedSize?.sizeName;
-      cartItem.price = selectedSize?.price;
+      cartItem.price = selectedSize?.price || product.price;
     }
     addToCart(cartItem);
   };
@@ -138,7 +153,7 @@ function ProductScreen({ navigation, route }: LoadedProductScreenParams) {
         </CustomText>
       </View>
 
-      {product.sizes && (
+      {product.availableSizes && (
         <View style={[styles.descriptionContainer, styles.sizes]}>
           {product.sizes?.map((size: ProductSizeType, index: number) => (
             <TouchableOpacity

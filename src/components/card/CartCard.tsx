@@ -4,14 +4,14 @@ import { CartCardProps } from "../../declarations/card";
 import { MarginVerticalProps } from "../../declarations/common";
 import Color from "../../config/Colors";
 import useCustomNavigation from "../../hooks/useCustomNavigation";
-import { productPlaceholderData } from "../../../placeholder";
 import CustomText from "../text/CustomText";
 import { getPrice } from "../../function/text";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import IconFeather from "@expo/vector-icons/Feather";
 import Checkbox from "../common/Checkbox";
 import useCart from "../../hooks/useCart";
+import { setProduct } from "../../reducers/productReducer";
 
 export default function CartCard({
   cart,
@@ -21,6 +21,7 @@ export default function CartCard({
   index,
 }: CartCardProps) {
   const navigate = useCustomNavigation();
+  const dispatch = useDispatch();
   const { removeFromCart, onItemSelect, increaseQuantity, decreaseQuantity } =
     useCart();
   const styles = createStyles({ marginBottom, marginTop });
@@ -28,14 +29,15 @@ export default function CartCard({
   const { selectedCartItems } = useSelector((state: RootState) => state.cart);
 
   const productName = cart.productName;
-  const productImage = cart.product.images[0];
+  const productImage = cart.product.images && cart.product.images[0];
   const productPrice = cart.price;
   const productSelectedSizeQuantity = cart.selectedSize;
   const productQuantity = cart.quantity;
 
   const onImagePress = () => {
+    dispatch(setProduct(cart.product));
     navigate.ProductScreen({
-      product: productPlaceholderData,
+      product: cart.product,
     });
   };
 
@@ -70,9 +72,11 @@ export default function CartCard({
           {getPrice(productPrice)}
         </CustomText>
         <View style={styles.sizeContainer}>
-          <CustomText xsmall>
-            {selectedText}: {productSelectedSizeQuantity}
-          </CustomText>
+          {productSelectedSizeQuantity && (
+            <CustomText xsmall>
+              {selectedText}: {productSelectedSizeQuantity}
+            </CustomText>
+          )}
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button} onPress={OnSubtract}>

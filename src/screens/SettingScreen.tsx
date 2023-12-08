@@ -14,6 +14,7 @@ import { useLogout } from "../hooks/useLogout";
 import useUser from "../hooks/useUser";
 import IconFeather from "@expo/vector-icons/Feather";
 import GlobalLoadingModal from "../components/modal/GlobalLoadingModal";
+import Images from "../config/Images";
 
 function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
   const navigate = useCustomNavigation();
@@ -108,10 +109,7 @@ function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
             userGender === "feminine" && styles.cardSelected,
           ]}
         >
-          <Image
-            source={require("../../assets/Femalechoose.png")}
-            style={styles.image}
-          />
+          <Image source={Images.chooseFemaleImage} style={styles.image} />
           <CustomText medium>{feminineChoiceText}</CustomText>
         </TouchableOpacity>
 
@@ -122,10 +120,7 @@ function SettingScreen({ navigation, route }: LoadedSettingScreenParams) {
             userGender === "masculine" && styles.cardSelected,
           ]}
         >
-          <Image
-            source={require("../../assets/Malechoose.png")}
-            style={styles.image}
-          />
+          <Image source={Images.chooseMaleImage} style={styles.image} />
           <CustomText medium>{maculineChoiceText}</CustomText>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={[styles.button]}>

@@ -9,6 +9,8 @@ import { getPrice } from "../../function/text";
 import useCustomNavigation from "../../hooks/useCustomNavigation";
 import { CartItemType } from "../../types/loadedData";
 import useCart from "../../hooks/useCart";
+import { useDispatch } from "react-redux";
+import { setProduct } from "../../reducers/productReducer";
 
 export default function ProductCard({
   product,
@@ -17,10 +19,11 @@ export default function ProductCard({
   style,
 }: ProductCardProps) {
   const navigate = useCustomNavigation();
+  const dispatch = useDispatch();
   const { addToCart } = useCart();
   const styles = createStyles({ marginBottom, marginTop });
 
-  const productImage = product.images[0];
+  const productImage = product.images && product.images[0];
   const productName = product.name;
   const productPrice = product.price;
   const productType = product.type;
@@ -47,6 +50,7 @@ export default function ProductCard({
   };
 
   const OpenProduct = () => {
+    dispatch(setProduct(product));
     navigate.ProductScreen({ product });
   };
 
@@ -116,6 +120,7 @@ const createStyles = ({ marginBottom, marginTop }: MarginVerticalProps) =>
     left: {
       flexDirection: "column",
       justifyContent: "flex-end",
+      flex: 1,
     },
     right: {
       flexDirection: "column",
